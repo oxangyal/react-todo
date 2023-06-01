@@ -12,7 +12,7 @@ function App() {
     },
     {
       id: 3,
-      title: "Bike ride - 15 miles"
+      title: "Running 40 minutes"
     }
   ];
 
