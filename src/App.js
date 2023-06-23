@@ -9,6 +9,16 @@ function App() {
     });
 
     useEffect(() => {
+        new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve({ data: { todoList: useState } });
+            }, 2000);
+        }).then((result) => {
+            setTodoList(result.data.todoList);
+        });
+    }, []);
+
+    useEffect(() => {
         localStorage.setItem("savedTodoList", JSON.stringify(todoList));
     }, [todoList]);
 
