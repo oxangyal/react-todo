@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import AddTodoForm from "./AddTodoForm";
+import Clock from "./Clock";
 import TodoList from "./TodoList";
 
 function App() {
@@ -65,6 +66,7 @@ function App() {
             ) : (
                 <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
             )}
+            <Clock />
         </>
     );
 }
