@@ -13,12 +13,17 @@ const Clock = () => {
         };
     }, []);
 
-    return (
-        <div>
-            <h2>Boston</h2>
-            <p>{time.toLocaleTimeString()}</p>
-        </div>
-    );
-}
+    const dayOfWeek = time
+        .toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+            // year: "numeric",
+            hour: "numeric",
+            minute: "numeric",
+        })
+        .replace(" at", ",");
+
+    return <p>{dayOfWeek}</p>;
+};
 
 export default Clock;
