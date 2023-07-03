@@ -5,7 +5,6 @@ import TodoList from "./TodoList";
 
 function App() {
     const [todoList, setTodoList] = useState([]);
-
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -13,9 +12,8 @@ function App() {
             setTimeout(() => {
                 resolve({
                     data: {
-                        todoList: JSON.parse(
-                            localStorage.getItem("savedTodoList")
-                        ),
+                        todoList:
+                            JSON.parse(localStorage.getItem("savedTodoList")) || []
                     },
                 });
             }, 2000);
