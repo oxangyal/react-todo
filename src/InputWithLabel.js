@@ -6,8 +6,7 @@ function InputWithLabel(props) {
     useEffect(() => {
         inputRef.current.focus();
     });
-    console.log(props, props.todoTitle)
-    
+
     return (
         <>
             <label htmlFor={props.id}>{props.children}</label>
