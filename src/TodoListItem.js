@@ -7,7 +7,6 @@ function TodoListItem({ todo, onRemoveTodo }) {
             <button type="button" onClick={() => onRemoveTodo(todo.id)}>
                 Remove
             </button>
-            ;
         </li>
     );
 }
