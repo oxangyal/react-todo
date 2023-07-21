@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+import style from "./Clock.module.css"
+
 const Clock = () => {
     const [time, setTime] = useState(new Date());
 
@@ -23,7 +25,7 @@ const Clock = () => {
         })
         .replace(" at", ",");
 
-    return <p>{dayOfWeek}</p>;
+    return <p className={style.Date}>{dayOfWeek}</p>;
 };
 
 export default Clock;

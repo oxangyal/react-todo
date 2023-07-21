@@ -1,0 +1,22 @@
+ul{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    list-style-type: none;
+    justify-content: space-between;
+    
+}
+
+li{
+    color: black;
+    width: 310px;
+    height: 65px;
+    padding: 10px;
+    margin-top: 1px;
+    border: 0;
+    background-color: rgba(120, 133, 133, 0.618);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+}

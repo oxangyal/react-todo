@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;800&display=swap');
+
+html {
+    width: 100%;
+    height: 100%;
+    }
+
+body {
+    color: rgb(7, 1, 13);
+    font-family: 'Poppins', 'Helvetica', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    padding: 0;
+    margin: 0;
+    background: url('../assets/boston03.jpg') center / cover no-repeat;
+    }
+
+
+.Container {
+    display: flex;
+    flex-direction: row;
+    gap: 150px;
+    margin-top: 50px;
+    }
+
+.Container > :first-child {
+    margin-bottom: 20px;
+    }
+
+/* input {
+    width: 175px;
+    height: 20px;
+    cursor: pointer;
+    border-width: 1px;
+    border-radius: 5px;
+} */
+
+h1 {
+    font-size: 35px;
+    font-weight: 900;
+    }
+h2 {
+    font-size: 30px;
+    font-weight: 700;
+    }
+
+@media (min-width: 768px) and (max-width: 991px) {
+    body {
+        background: url('../assets/boston03.jpg') left / cover;
+    }
+
+.Container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 50px;
+    }
+
+.TodoContainer{
+    justify-content: center;
+    }
+
+.WeatherContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    }
+
+input {
+    width: auto;
+    height: auto;
+    }
+
+h1{
+    font-size: 20px;
+}
+
+}
+
+
+@media (max-width: 767px) {
+    body {
+        background:  url('../assets/boston03.jpg') 25% 75% / cover;
+    }
+
+    .Container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 50px;
+    }
+
+    input {
+        width: auto;
+        height: auto;
+    }
+
+    h1{
+    font-size: 15px;
+    }
+}

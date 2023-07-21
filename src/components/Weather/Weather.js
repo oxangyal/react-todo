@@ -1,0 +1,138 @@
+import React, { useEffect, useState } from "react";
+
+import  iconCloudy from "../../assets/cloudy96.png";
+import  iconHumidity from "../../assets/humidity.png";
+import  iconRain  from "../../assets/rain96.png";
+import  iconSnow  from "../../assets/snow96.png";
+import  iconSunny from "../../assets/sun96.png";
+import  iconWind from "../../assets/wind.png";
+import  style from "./Weather.module.css";
+
+// import { WiCloudy, WiDaySunny, WiRain, WiSnow } from "react-icons/wi";
+
+const Weather = () => {
+    const [weather, setWeather] = useState(null);
+    const apiKey = process.env.REACT_APP_API_WEATHER_KEY;
+
+    useEffect(() => {
+        const fetchWeather = async () => {
+            try {
+                const response = await fetch(
+                    `https://api.openweathermap.org/data/2.5/weather?q=Boston&appid=${apiKey}`
+                );
+                if (!response.ok) {
+                    throw new Error("Failed to fetch data");
+                }
+                const data = await response.json();
+                setWeather(data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchWeather();
+    }, [apiKey]);
+
+    const getWeatherIcon = (weatherCode) => {
+        switch (weatherCode) {
+            case "01d":
+                return (
+                    <img
+                        src={iconSunny}
+                        className={style.WeatherIcon}
+                        alt="Sunny Icon"
+                    />
+                );
+            case "01n":
+                return (
+                    <img
+                        src={iconSunny}
+                        className={style.WeatherIcon}
+                        alt="Sunny Icon"
+                    />
+                );
+            case "02d":
+                return (
+                    <img
+                        src={iconCloudy}
+                        className={style.WeatherIcon}
+                        alt="Cloudy Icon"
+                    />
+                );
+            case "02n":
+                return (
+                    <img
+                        src={iconCloudy}
+                        className={style.WeatherIcon}
+                        alt="Cloudy Icon"
+                    />
+                );
+            case "03d":
+            case "03n":
+            case "04d":
+            case "04n":
+                return (
+                    <img
+                        src={iconCloudy}
+                        className={style.WeatherIcon}
+                        alt="Cloudy Icon"
+                    />
+                );
+            case "09d":
+            case "09n":
+            case "10d":
+            case "10n":
+                return (
+                    <img
+                        src={iconRain}
+                        className={style.weatherIcon}
+                        alt="Rain Icon"
+                    />
+                );
+            case "13d":
+            case "13n":
+                return (
+                    <img
+                        src={iconSnow}
+                        className={style.WeatherIcon}
+                        alt="Snow Icon"
+                    />
+                );
+            default:
+                return null;
+        }
+    };
+    return (
+        <>
+            {weather ? (
+                <>
+                    <p className={style.City}>Boston</p>
+                    <p className={style.Data}>
+                        {(weather.main.temp - 273.15).toFixed(0)}°C
+                    </p>
+                    <p className={style.Data}>
+                        {getWeatherIcon(weather.weather[0].icon)}
+                    </p>
+                    <div className={style.Features}>
+                        <img
+                            src={iconHumidity}
+                            className={style.WeatherIconA}
+                            alt="Humidity Icon"
+                        />
+                        <p>{weather.main.humidity}%</p>
+                        <img
+                            src={iconWind}
+                            className={style.WeatherIconA}
+                            alt="Wind Icon"
+                        />
+                        <p>{(weather.wind.speed * 3.6).toFixed(0)}km/h</p>
+                    </div>
+                </>
+            ) : (
+                <p>Loading weather...</p>
+            )}
+        </>
+    );
+};
+
+export default Weather;

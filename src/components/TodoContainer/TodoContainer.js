@@ -1,7 +1,9 @@
+import "./TodoContainer.module.css";
+
 import { useEffect, useState } from "react";
 
-import AddTodoForm from "./AddTodoForm";
-import TodoList from "./TodoList";
+import AddTodoForm from "../AddTodoForm/AddTodoForm";
+import TodoList from "../TodoList/TodoList";
 
 const TodoContainer = () => {
     const [todoList, setTodoList] = useState([]);
@@ -153,7 +155,7 @@ const TodoContainer = () => {
 
     return (
         <>
-            <h1>ToDo List</h1>
+            <h1>Todo List</h1>
             <AddTodoForm onAddTodo={addTodo} />
 
             {isLoading ? (
@@ -163,6 +165,6 @@ const TodoContainer = () => {
             )}
         </>
     );
-}
+};
 
-export default TodoContainer; 
+export default TodoContainer;

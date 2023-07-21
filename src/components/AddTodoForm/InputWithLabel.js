@@ -1,3 +1,5 @@
+import "./AddTodoForm.module.css";
+
 import React, { useEffect, useRef } from "react";
 
 function InputWithLabel(props) {
@@ -10,7 +12,7 @@ function InputWithLabel(props) {
     return (
         <>
             <label htmlFor={props.id}>{props.children}</label>
-            <input
+            <input 
                 autoFocus="autoFocus"
                 id={props.id}
                 name="title"
@@ -18,6 +20,7 @@ function InputWithLabel(props) {
                 value={props.value}
                 onChange={props.onChange}
                 ref={inputRef}
+                placeholder="What do you have planned today?"
             ></input>
         </>
     );
