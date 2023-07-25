@@ -1,4 +1,8 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {
+    BrowserRouter,
+    Route,
+    Routes,
+} from "react-router-dom";
 
 import Clock from "../components/Clock/Clock";
 import TodoContainer from "../components/TodoContainer/TodoContainer";

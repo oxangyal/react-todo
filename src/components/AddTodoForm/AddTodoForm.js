@@ -29,18 +29,18 @@ function AddTodoForm({ onAddTodo }) {
 
     return (
         <form onSubmit={handleAddTodo} className={style.AddTodoForm}>
-            <InputWithLabel
-                id="todoTitle"
-                name="title"
-                type="text"
-                value={todoTitle}
-                onChange={handleTitleChange}
-            />
-            <p>{errorMessage}</p>
-            {/* <p>Title</p> */}
-            <button type="submit" className={style.ButtonAdd}>
-                <img src={iconPlus} alt="Add Icon" />
-            </button>
+                <InputWithLabel
+                    id="todoTitle"
+                    name="title"
+                    type="text"
+                    value={todoTitle}
+                    onChange={handleTitleChange}
+                />
+                <p className={style.ErrorMsg}>{errorMessage}</p>
+                {/* <p>Title</p> */}
+                <button type="submit" className={style.ButtonAdd}>
+                    <img src={iconPlus} alt="Add Icon" />
+                </button>
         </form>
     );
 }

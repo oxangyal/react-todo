@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 
-import  iconCloudy from "../../assets/cloudy96.png";
-import  iconHumidity from "../../assets/humidity.png";
-import  iconRain  from "../../assets/rain96.png";
-import  iconSnow  from "../../assets/snow96.png";
-import  iconSunny from "../../assets/sun96.png";
-import  iconWind from "../../assets/wind.png";
-import  style from "./Weather.module.css";
+import iconCloudy from "../../assets/cloudy96.png";
+import iconHumidity from "../../assets/humidity.png";
+import iconRain from "../../assets/rain96.png";
+import iconSnow from "../../assets/snow96.png";
+import iconSunny from "../../assets/sun96.png";
+import iconThunder from "../../assets/thunder96.png";
+import iconScattered from "../../assets/nosun96.png";
+import iconWind from "../../assets/wind.png";
+import style from "./Weather.module.css";
 
 // import { WiCloudy, WiDaySunny, WiRain, WiSnow } from "react-icons/wi";
 
@@ -34,48 +36,35 @@ const Weather = () => {
     }, [apiKey]);
 
     const getWeatherIcon = (weatherCode) => {
+        console.log("weatherCode: " + weatherCode);
         switch (weatherCode) {
             case "01d":
-                return (
-                    <img
-                        src={iconSunny}
-                        className={style.WeatherIcon}
-                        alt="Sunny Icon"
-                    />
-                );
             case "01n":
-                return (
-                    <img
-                        src={iconSunny}
-                        className={style.WeatherIcon}
-                        alt="Sunny Icon"
-                    />
-                );
             case "02d":
-                return (
-                    <img
-                        src={iconCloudy}
-                        className={style.WeatherIcon}
-                        alt="Cloudy Icon"
-                    />
-                );
             case "02n":
                 return (
                     <img
-                        src={iconCloudy}
+                        src={iconSunny}
                         className={style.WeatherIcon}
-                        alt="Cloudy Icon"
+                        alt="Sunny"
                     />
                 );
             case "03d":
             case "03n":
-            case "04d":
-            case "04n":
                 return (
                     <img
                         src={iconCloudy}
                         className={style.WeatherIcon}
-                        alt="Cloudy Icon"
+                        alt="Cloudy"
+                    />
+                );
+            case "04d":
+            case "04n":
+                return (
+                    <img
+                        src={iconScattered}
+                        className={style.WeatherIcon}
+                        alt="Scattered Clouds"
                     />
                 );
             case "09d":
@@ -85,8 +74,17 @@ const Weather = () => {
                 return (
                     <img
                         src={iconRain}
-                        className={style.weatherIcon}
-                        alt="Rain Icon"
+                        className={style.WeatherIcon}
+                        alt="Rain"
+                    />
+                );
+            case "11d":
+            case "11n":
+                return (
+                    <img
+                        src={iconThunder}
+                        className={style.WeatherIcon}
+                        alt="Thunder"
                     />
                 );
             case "13d":
@@ -95,7 +93,7 @@ const Weather = () => {
                     <img
                         src={iconSnow}
                         className={style.WeatherIcon}
-                        alt="Snow Icon"
+                        alt="Snow"
                     />
                 );
             default:
@@ -117,19 +115,20 @@ const Weather = () => {
                         <img
                             src={iconHumidity}
                             className={style.WeatherIconA}
-                            alt="Humidity Icon"
+                            alt="Humidity"
                         />
                         <p>{weather.main.humidity}%</p>
                         <img
                             src={iconWind}
                             className={style.WeatherIconA}
-                            alt="Wind Icon"
+                            alt="Wind"
                         />
                         <p>{(weather.wind.speed * 3.6).toFixed(0)}km/h</p>
                     </div>
                 </>
             ) : (
-                <p>Loading weather...</p>
+                    <p>Loading...</p>
+                    
             )}
         </>
     );
