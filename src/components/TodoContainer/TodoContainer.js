@@ -21,7 +21,7 @@ const TodoContainer = ({ tableName, baseName, apiKey }) => {
         };
 
         try {
-            const url = `https://api.airtable.com/v0/${baseName}/${tableName}?view=Grid%20view`;
+            const url = `https://api.airtable.com/v0/${baseName}/${tableName}?sort[0][field]=title&sort[0][direction]=asc`;
             const response = await fetch(url, options);
             if (!response.ok) {
                 throw new Error(`Error ${response.status}`);
