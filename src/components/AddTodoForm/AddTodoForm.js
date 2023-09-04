@@ -1,5 +1,8 @@
 import React, { useState } from "react";
+
 import InputWithLabel from "./InputWithLabel";
+import iconPlus from "../../assets/plus48.png";
+import style from "./AddTodoForm.module.css";
 
 function AddTodoForm({ onAddTodo }) {
     const [todoTitle, setTodoTitle] = useState("");
@@ -25,18 +28,19 @@ function AddTodoForm({ onAddTodo }) {
     };
 
     return (
-        <form onSubmit={handleAddTodo}>
-            <InputWithLabel
-                id="todoTitle"
-                name="title"
-                type="text"
-                value={todoTitle}
-                onChange={handleTitleChange}
-            />
-            <p>{errorMessage}</p>
-            <p>Title</p>
-            <button type="submit">Add</button>
-            
+        <form onSubmit={handleAddTodo} className={style.AddTodoForm}>
+                <InputWithLabel
+                    id="todoTitle"
+                    name="title"
+                    type="text"
+                    value={todoTitle}
+                    onChange={handleTitleChange}
+                />
+                <p className={style.ErrorMsg}>{errorMessage}</p>
+                {/* <p>Title</p> */}
+                <button type="submit" className={style.ButtonAdd}>
+                    <img src={iconPlus} alt="Add Icon" />
+                </button>
         </form>
     );
 }

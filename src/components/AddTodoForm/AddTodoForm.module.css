@@ -1,0 +1,62 @@
+button {
+    margin: 10px;
+    color: rgb(234, 229, 245);
+    font-size: 15px;
+    border-width: 1px;
+    border-radius: 5px;
+    padding: 3px;
+    cursor: pointer;
+}
+
+.ButtonAdd{
+    background: transparent;
+    border: none; 
+    padding: 0; 
+    cursor: pointer; 
+}
+
+.AddTodoForm {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+input {
+    width: 210px;
+    height: 20px;
+    padding: 15px;
+    margin: 0;
+    border: 0;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(9, 8, 8, 0.5);
+    background-color: rgba(130, 191, 234, 0.495);
+}
+
+.InputContainer{
+    display: flex;
+    justify-content: column;
+}
+
+.ErrorMsg{
+    font-size: 15px;
+    color: brown;
+}
+@media (min-width: 768px) and (max-width: 991px) {
+
+input{
+    width: 110px;
+    height: 10px;
+    margin-left: 80px;
+}
+}
+@media (max-width: 767px) {
+input{
+    width: 110px;
+    height: 10px;
+    margin-left: 80px;
+}  
+}
+
+

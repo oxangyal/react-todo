@@ -1,9 +1,10 @@
 import React from "react";
-import TodoListItem from "./TodoListItem";
+import TodoListItem from "../TodoListItem/TodoListItem";
+import style from "./TodoList.module.css";
 
 function TodoList({ todoList, onRemoveTodo }) {
     return (
-        <ul>
+        <ul className={style.li}>
             {todoList.map((todo) => (
                 <TodoListItem
                     key={todo.id}
