@@ -27,28 +27,27 @@ const TodoContainer = ({ tableName, baseName, apiKey }) => {
                 throw new Error(`Error ${response.status}`);
             }
             const data = await response.json();
-            
-            // Sorting ascending order
-            
+
+            // Sorting descending order
+
             function sortData(a, b) {
-                if (a.title > b.title) {
+                if (a.title < b.title) {
                     return 1;
                 }
-                if (a.title < b.title) {
+                if (a.title > b.title) {
                     return -1;
                 }
                 return 0;
             }
-            
+
             const todos = data.records.map((todo) => {
-                
                 const d = new Date(todo.createdTime);
                 const date = d.toLocaleDateString("en-EN", {
                     year: "numeric",
                     month: "numeric",
                     day: "numeric",
                 });
-                
+
                 return {
                     id: todo.id,
                     createdDate: date,
