@@ -9,7 +9,7 @@ import TodoList from "../TodoList/TodoList";
 const TodoContainer = ({ tableName, baseName, apiKey }) => {
     const [todoList, setTodoList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-
+    
     //Fetch  API, get data from Airtable
 
     const fetchData = async () => {
@@ -21,20 +21,42 @@ const TodoContainer = ({ tableName, baseName, apiKey }) => {
         };
 
         try {
-            const url = `https://api.airtable.com/v0/${baseName}/${tableName}?sort[0][field]=title&sort[0][direction]=asc`;
+            const url = `https://api.airtable.com/v0/${baseName}/${tableName}`;
             const response = await fetch(url, options);
             if (!response.ok) {
                 throw new Error(`Error ${response.status}`);
             }
             const data = await response.json();
+            
+            // Sorting ascending order
+            
+            function sortData(a, b) {
+                if (a.title > b.title) {
+                    return 1;
+                }
+                if (a.title < b.title) {
+                    return -1;
+                }
+                return 0;
+            }
+            
             const todos = data.records.map((todo) => {
+                
+                const d = new Date(todo.createdTime);
+                const date = d.toLocaleDateString("en-EN", {
+                    year: "numeric",
+                    month: "numeric",
+                    day: "numeric",
+                });
+                
                 return {
                     id: todo.id,
+                    createdDate: date,
                     title: todo.fields.title,
                 };
             });
 
-            setTodoList(todos);
+            setTodoList(todos.sort(sortData));
             setIsLoading(false);
         } catch (error) {
             console.error(error);
