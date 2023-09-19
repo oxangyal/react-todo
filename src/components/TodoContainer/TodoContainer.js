@@ -3,9 +3,10 @@ import "./TodoContainer.module.css";
 import { useEffect, useState } from "react";
 
 import AddTodoForm from "../AddTodoForm/AddTodoForm";
+import PropTypes from "prop-types";
 import TodoList from "../TodoList/TodoList";
 
-const TodoContainer = () => {
+const TodoContainer = ({ tableName, baseName, apiKey }) => {
     const [todoList, setTodoList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -15,12 +16,12 @@ const TodoContainer = () => {
         const options = {
             method: "GET",
             headers: {
-                Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+                Authorization: `Bearer ${apiKey}`,
             },
         };
 
         try {
-            const url = `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${process.env.REACT_APP_TABLE_NAME}`;
+            const url = `https://api.airtable.com/v0/${baseName}/${tableName}`;
             const response = await fetch(url, options);
             if (!response.ok) {
                 throw new Error(`Error ${response.status}`);
@@ -42,7 +43,7 @@ const TodoContainer = () => {
 
     useEffect(() => {
         fetchData();
-    }, []);
+    });
 
     useEffect(() => {
         if (!isLoading) {
@@ -57,7 +58,7 @@ const TodoContainer = () => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+                Authorization: `Bearer ${apiKey}`,
             },
             body: JSON.stringify({
                 fields: {
@@ -66,7 +67,7 @@ const TodoContainer = () => {
             }),
         };
         try {
-            const url = `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${process.env.REACT_APP_TABLE_NAME}`;
+            const url = `https://api.airtable.com/v0/${baseName}/${tableName}`;
             const response = await fetch(url, options);
             if (!response.ok) {
                 throw new Error(`Error: ${response.status}`);
@@ -115,12 +116,12 @@ const TodoContainer = () => {
     const removeTodo = async (id) => {
         try {
             setTodoList(todoList.filter((todo) => todo.id !== id));
-            const url = `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${process.env.REACT_APP_TABLE_NAME}/${id}`;
+            const url = `https://api.airtable.com/v0/${baseName}/${tableName}/${id}`;
 
             const response = await fetch(url, {
                 method: "DELETE",
                 headers: {
-                    Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+                    Authorization: `Bearer ${apiKey}`,
                 },
             });
 
@@ -165,6 +166,12 @@ const TodoContainer = () => {
             )}
         </>
     );
+};
+
+TodoContainer.propTypes = {
+    tableName: PropTypes.string,
+    baseName: PropTypes.string,
+    apiKey: PropTypes.string,
 };
 
 export default TodoContainer;

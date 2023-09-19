@@ -2,6 +2,8 @@ import "./AddTodoForm.module.css";
 
 import React, { useEffect, useRef } from "react";
 
+import PropTypes from "prop-types";
+
 function InputWithLabel(props) {
     const inputRef = useRef();
 
@@ -25,5 +27,14 @@ function InputWithLabel(props) {
         </>
     );
 }
+
+InputWithLabel.propTypes = {
+    id: PropTypes.string,
+    children: PropTypes.object,
+    value: PropTypes.string,
+    type: PropTypes.string,
+    name: PropTypes.string,
+    onInputChange: PropTypes.func,
+};
 
 export default InputWithLabel;

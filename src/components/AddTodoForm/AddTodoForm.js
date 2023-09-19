@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import InputWithLabel from "./InputWithLabel";
+import PropTypes from "prop-types";
 import iconPlus from "../../assets/plus48.png";
 import style from "./AddTodoForm.module.css";
 
@@ -44,5 +45,10 @@ function AddTodoForm({ onAddTodo }) {
         </form>
     );
 }
+
+AddTodoForm.propTypes = {
+    onAddTodo: PropTypes.func,
+};
+
 
 export default AddTodoForm;
