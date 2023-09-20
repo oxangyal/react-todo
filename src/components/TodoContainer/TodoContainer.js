@@ -5,13 +5,14 @@ import { useEffect, useState } from "react";
 import AddTodoForm from "../AddTodoForm/AddTodoForm";
 import PropTypes from "prop-types";
 import TodoList from "../TodoList/TodoList";
+import style from "./TodoContainer.module.css";
 
 const TodoContainer = ({ tableName, baseName, apiKey }) => {
     const [todoList, setTodoList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [sortOrder, setSortOrder] = useState("ASC");
     
     //Fetch  API, get data from Airtable
-
     const fetchData = async () => {
         const options = {
             method: "GET",
@@ -28,33 +29,33 @@ const TodoContainer = ({ tableName, baseName, apiKey }) => {
             }
             const data = await response.json();
 
-            // Sorting descending order
+            
+            // Sorting ascending order
 
             function sortData(a, b) {
-                if (a.title < b.title) {
+                if (a.title > b.title) {
                     return 1;
                 }
-                if (a.title > b.title) {
+                if (a.title < b.title) {
                     return -1;
                 }
                 return 0;
             }
-
+            
             const todos = data.records.map((todo) => {
                 const d = new Date(todo.createdTime);
                 const date = d.toLocaleDateString("en-EN", {
-                    year: "numeric",
-                    month: "numeric",
+                    month: "short",
                     day: "numeric",
                 });
-
                 return {
                     id: todo.id,
                     createdDate: date,
                     title: todo.fields.title,
                 };
             });
-
+            
+            
             setTodoList(todos.sort(sortData));
             setIsLoading(false);
         } catch (error) {
@@ -136,7 +137,6 @@ const TodoContainer = ({ tableName, baseName, apiKey }) => {
 
     const removeTodo = async (id) => {
         try {
-            setTodoList(todoList.filter((todo) => todo.id !== id));
             const url = `https://api.airtable.com/v0/${baseName}/${tableName}/${id}`;
 
             const response = await fetch(url, {
@@ -175,24 +175,34 @@ const TodoContainer = ({ tableName, baseName, apiKey }) => {
     //         .catch((error) => console.error(error));
     // };
 
-    return (
-        <>
-            <h1>Todo List</h1>
-            <AddTodoForm onAddTodo={addTodo} />
-
-            {isLoading ? (
-                <p>Loading...</p>
-            ) : (
-                <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
-            )}
-        </>
-    );
-};
-
-TodoContainer.propTypes = {
-    tableName: PropTypes.string,
-    baseName: PropTypes.string,
-    apiKey: PropTypes.string,
-};
+    function handleSortToggle() {
+        if (sortOrder === "ASC") {
+            setSortOrder("DESC");
+        } else {
+            setSortOrder("ASC");
+        }
+    } 
+        return (
+            <>
+                <h1>Todo List</h1>
+                <AddTodoForm onAddTodo={addTodo} />
+                <div className={style.SortButtons}>
+                    <button className={style.Sort} onClick={handleSortToggle}>A-Z</button>
+                    <button className={style.Sort}>Date</button>
+                </div>
+                {isLoading ? (
+                    <p>Loading...</p>
+                ) : (
+                    <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
+                )}
+            </>
+        );
+    };
+    
+    TodoContainer.propTypes = {
+        tableName: PropTypes.string,
+        baseName: PropTypes.string,
+        apiKey: PropTypes.string,
+    };
 
 export default TodoContainer;
