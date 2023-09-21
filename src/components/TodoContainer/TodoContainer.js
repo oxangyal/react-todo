@@ -10,8 +10,24 @@ import style from "./TodoContainer.module.css";
 const TodoContainer = ({ tableName, baseName, apiKey }) => {
     const [todoList, setTodoList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [sortOrder, setSortOrder] = useState("ASC");
-    
+    const [sortOrder, setSortOrder] = useState("ascending");
+    const [sortedTodoList, setSortedTodoList] = useState([]);
+
+    const handleSort = () => {
+        const newSortOrder =
+            sortOrder === "ascending" ? "descending" : "ascending";
+        const sortedData = [...todoList].sort((a, b) => {
+            if (newSortOrder === "ascending") {
+                return a.title.localeCompare(b.title);
+            } else {
+                return b.title.localeCompare(a.title);
+            }
+        });
+
+        setSortedTodoList(sortedData);
+        setSortOrder(newSortOrder);
+    };
+
     //Fetch  API, get data from Airtable
     const fetchData = async () => {
         const options = {
@@ -29,19 +45,18 @@ const TodoContainer = ({ tableName, baseName, apiKey }) => {
             }
             const data = await response.json();
 
-            
-            // Sorting ascending order
+            // // Sorting ascending order
 
-            function sortData(a, b) {
-                if (a.title > b.title) {
-                    return 1;
-                }
-                if (a.title < b.title) {
-                    return -1;
-                }
-                return 0;
-            }
-            
+            // function sortData(a, b) {
+            //     if (a.title > b.title) {
+            //         return 1;
+            //     }
+            //     if (a.title < b.title) {
+            //         return -1;
+            //     }
+            //     return 0;
+            // }
+
             const todos = data.records.map((todo) => {
                 const d = new Date(todo.createdTime);
                 const date = d.toLocaleDateString("en-EN", {
@@ -54,9 +69,16 @@ const TodoContainer = ({ tableName, baseName, apiKey }) => {
                     title: todo.fields.title,
                 };
             });
-            
-            
-            setTodoList(todos.sort(sortData));
+            setTodoList(todos);
+            setSortedTodoList(
+                [...todos].sort((a, b) => {
+                    if (sortOrder === "ascending") {
+                        return a.title.localeCompare(b.title);
+                    } else {
+                        return b.title.localeCompare(a.title);
+                    }
+                })
+            );
             setIsLoading(false);
         } catch (error) {
             console.error(error);
@@ -65,7 +87,7 @@ const TodoContainer = ({ tableName, baseName, apiKey }) => {
 
     useEffect(() => {
         fetchData();
-    });
+    }, []);
 
     useEffect(() => {
         if (!isLoading) {
@@ -100,6 +122,8 @@ const TodoContainer = ({ tableName, baseName, apiKey }) => {
                 title: title.title,
             };
             setTodoList([...todoList, newTodo]);
+            setSortedTodoList([...sortedTodoList, newTodo]);
+            
         } catch (error) {
             console.error(error);
             return null;
@@ -149,6 +173,10 @@ const TodoContainer = ({ tableName, baseName, apiKey }) => {
             if (response.ok) {
                 const filteredList = todoList.filter((data) => data.id !== id);
                 setTodoList(filteredList);
+                const sortedFilteredList = sortedTodoList.filter(
+                    (data) => data.id !== id
+                );
+                setSortedTodoList(sortedFilteredList);
             } else {
                 throw new Error(`Error: ${response.status}`);
             }
@@ -175,34 +203,42 @@ const TodoContainer = ({ tableName, baseName, apiKey }) => {
     //         .catch((error) => console.error(error));
     // };
 
-    function handleSortToggle() {
-        if (sortOrder === "ASC") {
-            setSortOrder("DESC");
-        } else {
-            setSortOrder("ASC");
-        }
-    } 
-        return (
-            <>
-                <h1>Todo List</h1>
-                <AddTodoForm onAddTodo={addTodo} />
-                <div className={style.SortButtons}>
-                    <button className={style.Sort} onClick={handleSortToggle}>A-Z</button>
-                    <button className={style.Sort}>Date</button>
-                </div>
-                {isLoading ? (
-                    <p>Loading...</p>
-                ) : (
-                    <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
-                )}
-            </>
-        );
-    };
-    
-    TodoContainer.propTypes = {
-        tableName: PropTypes.string,
-        baseName: PropTypes.string,
-        apiKey: PropTypes.string,
-    };
+    // function handleSortToggle() {
+    //     if (sortOrder === "ascending") {
+    //         setSortOrder("descending");
+    //     } else {
+    //         setSortOrder("ascending");
+    //     }
+    // }
+    return (
+        <>
+            <h1>Todo List</h1>
+            <AddTodoForm onAddTodo={addTodo} />
+            <div className={style.SortButtons}>
+                <button className={style.Sort} onClick={handleSort}>
+                    Sort {sortOrder === "ascending" ? "Z-A" : "A-Z"}
+                </button>
+                {/* <button className={style.Sort} onClick={handleSortToggle}>
+                        A-Z
+                    </button> */}
+                {/* <button className={style.Sort} onClick={handleSort}>
+                        Date
+                    </button> */}
+            </div>
+
+            {isLoading ? (
+                <p>Loading...</p>
+            ) : (
+                <TodoList todoList={sortedTodoList} onRemoveTodo={removeTodo} />
+            )}
+        </>
+    );
+};
+
+TodoContainer.propTypes = {
+    tableName: PropTypes.string,
+    baseName: PropTypes.string,
+    apiKey: PropTypes.string,
+};
 
 export default TodoContainer;
