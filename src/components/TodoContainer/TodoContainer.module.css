@@ -7,6 +7,19 @@ h1{
 padding-left: 50px;
 }
 
+.Sort{
+    font-size: 18px;
+    color: black;
+    margin-left: 50px;
+    width: 80px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.SortButtons{
+    display: flex;
+    justify-content: left;
+}
 @media (min-width: 768px) and (max-width: 991px) {
     h1{
         font-size: 50%;

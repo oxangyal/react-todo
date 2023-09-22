@@ -243,9 +243,9 @@ const TodoContainer = ({ tableName, baseName, apiKey }) => {
                     className={style.Sort}
                     onClick={handleSortDate}
                 >
-                    {sortOrder === "ascending"
-                        ? "Date (Newest)"
-                        : "Date (Oldest)"}
+                    {dateSortOrder === "ascending"
+                        ? "Newest Date"
+                        : "Oldest Date"}
                 </button>
             </div>
 
