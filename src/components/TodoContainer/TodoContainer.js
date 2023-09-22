@@ -12,6 +12,7 @@ const TodoContainer = ({ tableName, baseName, apiKey }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [sortOrder, setSortOrder] = useState("ascending");
     const [sortedTodoList, setSortedTodoList] = useState([]);
+    const [dateSortOrder, setDateSortOrder] = useState("ascending");
 
     const handleSort = () => {
         const newSortOrder =
@@ -26,6 +27,20 @@ const TodoContainer = ({ tableName, baseName, apiKey }) => {
 
         setSortedTodoList(sortedData);
         setSortOrder(newSortOrder);
+    };
+
+    const handleSortDate = () => {
+        const newDateSortOrder =
+            dateSortOrder === "ascending" ? "descending" : "ascending";
+        const sortedData = [...todoList].sort((a, b) => {
+            if (newDateSortOrder === "ascending") {
+                return new Date(a.createdDate) - new Date(b.createdDate);
+            } else {
+                return new Date(b.createdDate) - new Date(a.createdDate);
+            }
+        });
+        setSortedTodoList(sortedData);
+        setDateSortOrder(newDateSortOrder);
     };
 
     //Fetch  API, get data from Airtable
@@ -87,6 +102,7 @@ const TodoContainer = ({ tableName, baseName, apiKey }) => {
 
     useEffect(() => {
         fetchData();
+        console.log();
     }, []);
 
     useEffect(() => {
@@ -123,7 +139,6 @@ const TodoContainer = ({ tableName, baseName, apiKey }) => {
             };
             setTodoList([...todoList, newTodo]);
             setSortedTodoList([...sortedTodoList, newTodo]);
-            
         } catch (error) {
             console.error(error);
             return null;
@@ -215,15 +230,23 @@ const TodoContainer = ({ tableName, baseName, apiKey }) => {
             <h1>Todo List</h1>
             <AddTodoForm onAddTodo={addTodo} />
             <div className={style.SortButtons}>
-                <button className={style.Sort} onClick={handleSort}>
-                    Sort {sortOrder === "ascending" ? "Z-A" : "A-Z"}
+                <button
+                    type="button"
+                    className={style.Sort}
+                    onClick={handleSort}
+                >
+                    {sortOrder === "ascending" ? "Z - a" : "A - z"}{" "}
+                    {/* <img src= {iconSort} alt="Sort Icon" /> */}
                 </button>
-                {/* <button className={style.Sort} onClick={handleSortToggle}>
-                        A-Z
-                    </button> */}
-                {/* <button className={style.Sort} onClick={handleSort}>
-                        Date
-                    </button> */}
+                <button
+                    type="button"
+                    className={style.Sort}
+                    onClick={handleSortDate}
+                >
+                    {sortOrder === "ascending"
+                        ? "Date (Newest)"
+                        : "Date (Oldest)"}
+                </button>
             </div>
 
             {isLoading ? (
