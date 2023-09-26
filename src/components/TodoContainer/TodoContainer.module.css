@@ -3,11 +3,11 @@
     margin: auto;
 }
 
-h1{
-padding-left: 50px;
+h1 {
+    padding-left: 50px;
 }
 
-.Sort{
+.Sort {
     font-size: 18px;
     color: black;
     margin-left: 50px;
@@ -17,53 +17,57 @@ padding-left: 50px;
     cursor: pointer;
 }
 
-.SortButtons{
+.SortButtons {
     display: flex;
-    justify-content: left;
     cursor: pointer;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.sortingIcon {
+    width: 25px;
+    height: 25px;
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
-    h1{
+    h1 {
         font-size: 50%;
         text-align: center;
     }
 
-    .SortButtons{
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-}
+    .SortButtons {
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+    }
 
-    .Sort{
+    .Sort {
         font-size: 10px;
         color: black;
         /* margin-left: 50px; */
         /* width: 80px; */
         font-weight: 400;
         cursor: pointer;
-}
-
+    }
 }
 
 @media (max-width: 767px) {
-    h1{
+    h1 {
         font-size: 50%;
         text-align: center;
     }
 
-    .SortButtons{
-    flex-direction: column;
-    align-items: center;
-}
+    .SortButtons {
+        flex-direction: column;
+        align-items: center;
+    }
 
-.Sort{
-    font-size: 10px;
-    color: black;
-    /* margin-left: 50px; */
-    /* width: 80px; */
-    font-weight: 400;
-    cursor: pointer;
+    .Sort {
+        font-size: 10px;
+        color: black;
+        /* margin-left: 50px; */
+        /* width: 80px; */
+        font-weight: 400;
+        cursor: pointer;
+    }
 }
-}
-
