@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import iconCloudy from "../../assets/cloudy96.png";
 import iconHumidity from "../../assets/humidity.png";
 import iconRain from "../../assets/rain96.png";
+import iconScattered from "../../assets/nosun96.png";
 import iconSnow from "../../assets/snow96.png";
 import iconSunny from "../../assets/sun96.png";
 import iconThunder from "../../assets/thunder96.png";
-import iconScattered from "../../assets/nosun96.png";
 import iconWind from "../../assets/wind.png";
 import style from "./Weather.module.css";
 
@@ -71,6 +71,7 @@ const Weather = () => {
             case "09n":
             case "10d":
             case "10n":
+            case "50d":
                 return (
                     <img
                         src={iconRain}

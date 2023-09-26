@@ -12,9 +12,38 @@
 
 footer {
     padding: 10px 0;
-    text-align: center;
+    text-align: left;
     position: fixed;
     bottom: 0;
     width: 100%;
 }
 
+@media (min-width: 768px) and (max-width: 991px) {
+
+.Copyright {
+    font-size: 10px;
+    padding-left: 10px;
+}
+
+footer {
+    padding: 10px 0;
+    text-align: left;
+    width: 50%;
+    text-align: center;
+}
+}
+
+@media (max-width: 767px) {
+
+.Copyright {
+    font-size: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+footer {
+    padding: 10px 0;
+    text-align: center;
+    width: 50%;
+}
+}

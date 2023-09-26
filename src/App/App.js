@@ -1,15 +1,14 @@
-import {
-    BrowserRouter,
-    Route,
-    Routes,
-} from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Clock from "../components/Clock/Clock";
 import Footer from "../components/Footer/Footer";
-import NavBar from "../components/NavBar/NavBar";
+import Quote from "../components/Quote/Quote";
+import Timer from "../components/Timer/Timer";
 import TodoContainer from "../components/TodoContainer/TodoContainer";
 import Weather from "../components/Weather/Weather";
 import style from "./App.module.css";
+
+// import NavBar from "../components/NavBar/NavBar";
 
 const tableName = process.env.REACT_APP_TABLE_NAME;
 const baseName = process.env.REACT_APP_AIRTABLE_BASE_ID;
@@ -20,10 +19,15 @@ function App() {
         <>
             <div className={style.Container}>
                 <div className={style.WeatherContainer}>
-                    <NavBar />
                     <Clock />
                     <Weather />
+                    <Quote />
+                    <Timer />
                 </div>
+                {/* <div>
+                    <NavBar />
+                    
+                </div> */}
                 <div className={style.TodoContainer}>
                     <BrowserRouter>
                         <Routes>
@@ -37,10 +41,6 @@ function App() {
                                         apiKey={apiKey}
                                     />
                                 }
-                            />
-                            <Route
-                                path="/new"
-                                element={<h1>New Todo List</h1>}
                             />
                         </Routes>
                     </BrowserRouter>

@@ -1,0 +1,23 @@
+.Quote{
+    font-size: 30px;
+    color:rgb(1, 1, 13);
+    padding-left: 100px;  
+    padding-top: 10px;
+    font-family: 'Indie Flower', cursive;
+    width: 350px;
+}
+@media (min-width: 768px) and (max-width: 991px) {
+
+.Quote{
+    font-size: 10px;
+    padding-left: 100px;
+}
+}
+
+@media (max-width: 767px) {
+
+.Quote{
+    font-size: 10px;
+    padding-left: 100px;
+}
+}

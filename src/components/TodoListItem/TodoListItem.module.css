@@ -3,5 +3,9 @@
     background: transparent;
     border: none; 
     padding: 0; 
-    cursor: pointer; 
+    cursor: pointer;
+}
+
+.todoDate{
+    font-size: 10px;
 }
