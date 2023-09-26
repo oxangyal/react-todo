@@ -9,7 +9,6 @@ function TodoListItem({ todo, onRemoveTodo }) {
             <li>
                 {todo.title}
                 <span className={style.todoDate}>{todo.createdDate}</span>
-
                 <button
                     type="button"
                     onClick={() => onRemoveTodo(todo.id)}

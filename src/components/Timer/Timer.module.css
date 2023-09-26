@@ -49,7 +49,7 @@
 .TimerNumbers {
     font-size: 10px;
     font-weight: 400;
-    width: 100px;
+    width: 120px;
 }
 
 .Reset, .Stop, .Start {
@@ -59,7 +59,7 @@
     font-weight: 400;
     padding: 5px 10px;
     margin: 0 10px;
-    width: 30px;
+    width: 60px;
 }
 
 }
@@ -69,7 +69,7 @@
 .TimerNumbers {
     font-size: 10px;
     font-weight: 400;
-    width: 100px;
+    width: 120px;
 }
 
 .Reset, .Stop, .Start {

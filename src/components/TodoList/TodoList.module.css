@@ -10,7 +10,7 @@ ul{
 li{
     color: black;
     width: 310px;
-    height: 65px;
+    height: 45px;
     padding: 10px;
     margin-top: 1px;
     border: 0;
@@ -24,7 +24,7 @@ li{
 @media (min-width: 768px) and (max-width: 991px) {
     li{
         font-size: 15px;
-        width: 170px;
+        width: 220px;
         height: 30px;
         padding: 5px;
     }
@@ -33,7 +33,7 @@ li{
 @media (max-width: 767px) {
     li{
         font-size: 15px;
-        width: 170px;
+        width: 220px;
         height: 30px;
         padding: 5px;
     }

@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 
 import Clock from "../components/Clock/Clock";
 import Footer from "../components/Footer/Footer";
@@ -7,8 +7,12 @@ import Timer from "../components/Timer/Timer";
 import TodoContainer from "../components/TodoContainer/TodoContainer";
 import Weather from "../components/Weather/Weather";
 import style from "./App.module.css";
+import NotFound from "../components/NotFound/NotFound";
+// import HomePage from "../components/Home/Home";
 
 // import NavBar from "../components/NavBar/NavBar";
+// import TodoList from "../components/TodoList/TodoList";
+import Home from "../components/Home/Home";
 
 const tableName = process.env.REACT_APP_TABLE_NAME;
 const baseName = process.env.REACT_APP_AIRTABLE_BASE_ID;
@@ -24,26 +28,46 @@ function App() {
                     <Quote />
                     <Timer />
                 </div>
-                {/* <div>
-                    <NavBar />
-                    
-                </div> */}
-                <div className={style.TodoContainer}>
-                    <BrowserRouter>
-                        <Routes>
-                            <Route
-                                exact
-                                path="/"
-                                element={
-                                    <TodoContainer
-                                        tableName={tableName}
-                                        baseName={baseName}
-                                        apiKey={apiKey}
-                                    />
-                                }
-                            />
-                        </Routes>
-                    </BrowserRouter>
+                <div className={style.Navigation}>
+                    <div className={style.TodoContainer}>
+                        <BrowserRouter>
+                            {/* <NavBar /> */}
+                            <div>
+                                <ul className={style.NavLinkWrapper}>
+                                    <li className={style.NavLink}>
+                                        <Link to="/">Home</Link>
+                                    </li>
+                                    <li className={style.NavLink}>
+                                        <Link to="/new">New</Link>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <Routes>
+                                <Route
+                                    exact
+                                    path="/"
+                                    element={
+                                        <TodoContainer
+                                            tableName={tableName}
+                                            baseName={baseName}
+                                            apiKey={apiKey}
+                                        />
+                                    }
+                                />
+
+                                <Route
+                                    path="/new"
+                                    element={<h1>New Todo List</h1>}
+                                />
+
+                                {/* <Route path="/" element={<HomePage />} /> */}
+                                <Route path="/home" element={<Home />} />
+                                {/* <Route path="/training" element={<Training/>} /> */}
+                                <Route path="/404" element={<NotFound />} />
+                            </Routes>
+                        </BrowserRouter>
+                    </div>
                     <Footer />
                 </div>
             </div>
