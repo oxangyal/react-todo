@@ -1,11 +1,14 @@
-
-.ButtonDelete{
+.ButtonDelete {
     background: transparent;
-    border: none; 
-    padding: 0; 
+    border: none;
+    padding: 0;
     cursor: pointer;
 }
 
-.todoDate{
+.todoDate {
     font-size: 10px;
+}
+
+.ButtonEdit {
+    cursor: not-allowed;
 }

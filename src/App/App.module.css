@@ -14,7 +14,7 @@ body {
     font-weight: 400;
     padding: 0;
     margin: 0;
-    background: url("../assets/boston04.jpg") center / cover no-repeat;
+    background: url("../assets/boston04.jpg") center / cover repeat-y;
 }
 
 .Container {
@@ -71,8 +71,13 @@ h2 {
 
 .NavLink:hover {
     transform: scale(1);
-    background: linear-gradient(45deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.5)); 
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3), 0px 0px 10px rgba(255, 255, 255, 0.8);
+    background: linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.8),
+        rgba(255, 255, 255, 0.5)
+    );
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3),
+        0px 0px 10px rgba(255, 255, 255, 0.8);
 }
 
 .NavLink a {

@@ -5,6 +5,10 @@ import { useEffect, useState } from "react";
 import AddTodoForm from "../AddTodoForm/AddTodoForm";
 import PropTypes from "prop-types";
 import TodoList from "../TodoList/TodoList";
+import iconA from "../../assets/sort48u.png";
+import iconZ from "../../assets/sort48d.png";
+import sortDown from "../../assets/sort48down.png";
+import sortUp from "../../assets/sort48up.png";
 import style from "./TodoContainer.module.css";
 
 const TodoContainer = ({ tableName, baseName, apiKey }) => {
@@ -13,6 +17,28 @@ const TodoContainer = ({ tableName, baseName, apiKey }) => {
     const [sortOrder, setSortOrder] = useState("ascending");
     const [sortedTodoList, setSortedTodoList] = useState([]);
     const [dateSortOrder, setDateSortOrder] = useState("ascending");
+    const [editTodoId, setEditTodoId] = useState(null);
+    const [editedText, setEditedText] = useState("");
+
+    const handleEdit = (id, editedText) => {
+        const editedTodo = todoList.find((todo) => todo.id === id);
+        if (editedTodo) {
+            setEditedText(editedTodo.title);
+        }
+        setEditTodoId(id);
+    };
+
+    const handleSaveClick = (editedText, id) => {
+        const updatedTodoList = todoList.map((todo) =>
+            todo.id === id ? { ...todo, title: editedText } : todo
+        );
+        setTodoList(updatedTodoList);
+        setEditTodoId(null);
+    };
+
+    const handleCancelClick = () => {
+        setEditTodoId(null);
+    };
 
     const handleSort = () => {
         const newSortOrder =
@@ -34,9 +60,9 @@ const TodoContainer = ({ tableName, baseName, apiKey }) => {
             dateSortOrder === "ascending" ? "descending" : "ascending";
         const sortedData = [...todoList].sort((a, b) => {
             if (newDateSortOrder === "ascending") {
-                return new Date(a.createdDate) - new Date(b.createdDate);
+                return new Date(a.createdTime) - new Date(b.createdTime);
             } else {
-                return new Date(b.createdDate) - new Date(a.createdDate);
+                return new Date(b.createdTime) - new Date(a.createdTime);
             }
         });
         setSortedTodoList(sortedData);
@@ -80,7 +106,7 @@ const TodoContainer = ({ tableName, baseName, apiKey }) => {
                 });
                 return {
                     id: todo.id,
-                    createdDate: date,
+                    createdTime: `${date}`,
                     title: todo.fields.title,
                 };
             });
@@ -102,7 +128,6 @@ const TodoContainer = ({ tableName, baseName, apiKey }) => {
 
     useEffect(() => {
         fetchData();
-        console.log();
     }, []);
 
     useEffect(() => {
@@ -133,9 +158,15 @@ const TodoContainer = ({ tableName, baseName, apiKey }) => {
                 throw new Error(`Error: ${response.status}`);
             }
             const todo = await response.json();
+            const d = new Date(todo.createdTime);
+            const date = d.toLocaleDateString("en-EN", {
+                month: "short",
+                day: "numeric",
+            });
             const newTodo = {
                 id: todo.id,
-                title: title.title,
+                title: todo.fields.title,
+                createdTime: `${date}`,
             };
             setTodoList([...todoList, newTodo]);
             setSortedTodoList([...sortedTodoList, newTodo]);
@@ -235,7 +266,19 @@ const TodoContainer = ({ tableName, baseName, apiKey }) => {
                     className={style.Sort}
                     onClick={handleSort}
                 >
-                    {sortOrder === "ascending" ? "Z - a" : "A - z"}{" "}
+                    {sortOrder === "ascending" ? (
+                        <img
+                            className={style.sortingIcon}
+                            src={iconA}
+                            alt="Sorting A-Z Icon"
+                        />
+                    ) : (
+                        <img
+                            className={style.sortingIcon}
+                            src={iconZ}
+                            alt="Sorting Z-A Icon"
+                        />
+                    )}{" "}
                     {/* <img src= {iconSort} alt="Sort Icon" /> */}
                 </button>
                 <button
@@ -243,16 +286,35 @@ const TodoContainer = ({ tableName, baseName, apiKey }) => {
                     className={style.Sort}
                     onClick={handleSortDate}
                 >
-                    {dateSortOrder === "ascending"
-                        ? "Newest Date"
-                        : "Oldest Date"}
+                    {dateSortOrder === "ascending" ? (
+                        <img
+                            className={style.sortingIcon}
+                            src={sortUp}
+                            alt="Sorting Newest Date Icon"
+                        />
+                    ) : (
+                        <img
+                            className={style.sortingIcon}
+                            src={sortDown}
+                            alt="Sorting Oldest Date Icon"
+                        />
+                    )}
                 </button>
             </div>
 
             {isLoading ? (
                 <p>Loading...</p>
             ) : (
-                <TodoList todoList={sortedTodoList} onRemoveTodo={removeTodo} />
+                <TodoList
+                    todoList={sortedTodoList}
+                    onRemoveTodo={removeTodo}
+                    onEditTodo={handleEdit}
+                    editTodoId={editTodoId}
+                    onSave={handleSaveClick}
+                    onCancel={handleCancelClick}
+                    editedText={editedText}
+                    setEditedText={setEditedText}
+                />
             )}
         </>
     );

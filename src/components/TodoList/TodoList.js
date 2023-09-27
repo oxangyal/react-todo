@@ -3,7 +3,13 @@ import React from "react";
 import TodoListItem from "../TodoListItem/TodoListItem";
 import style from "./TodoList.module.css";
 
-function TodoList({ todoList, onRemoveTodo }) {
+function TodoList({
+    todoList,
+    onRemoveTodo,
+    onEditTodo,
+    editTodoId,
+    setEditedText,
+}) {
     return (
         <>
             <ul className={style.li}>
@@ -12,6 +18,9 @@ function TodoList({ todoList, onRemoveTodo }) {
                         key={todo.id}
                         todo={todo}
                         onRemoveTodo={onRemoveTodo}
+                        onEditTodo={onEditTodo}
+                        isEditing={editTodoId === todo.id}
+                        setEditedText={setEditedText}
                     />
                 ))}
             </ul>
@@ -22,6 +31,8 @@ function TodoList({ todoList, onRemoveTodo }) {
 TodoList.propTypes = {
     todoList: PropTypes.array,
     onRemoveTodo: PropTypes.func,
+    onEditTodo: PropTypes.func,
+    editTodoId: PropTypes.string,
 };
 
 export default TodoList;

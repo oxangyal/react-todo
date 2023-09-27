@@ -1,13 +1,12 @@
-ul{
+ul {
     display: flex;
     align-items: center;
     flex-direction: column;
     list-style-type: none;
     justify-content: space-between;
-    
 }
 
-li{
+li {
     color: black;
     width: 310px;
     height: 45px;
@@ -22,16 +21,16 @@ li{
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
-    li{
+    li {
         font-size: 15px;
         width: 220px;
         height: 30px;
         padding: 5px;
     }
-    }
+}
 
 @media (max-width: 767px) {
-    li{
+    li {
         font-size: 15px;
         width: 220px;
         height: 30px;

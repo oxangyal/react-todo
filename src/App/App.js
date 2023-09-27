@@ -1,18 +1,20 @@
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 
 import Clock from "../components/Clock/Clock";
 import Footer from "../components/Footer/Footer";
+import Home from "../components/Home/Home";
+import NotFound from "../components/NotFound/NotFound";
 import Quote from "../components/Quote/Quote";
 import Timer from "../components/Timer/Timer";
 import TodoContainer from "../components/TodoContainer/TodoContainer";
 import Weather from "../components/Weather/Weather";
 import style from "./App.module.css";
-import NotFound from "../components/NotFound/NotFound";
+
 // import HomePage from "../components/Home/Home";
 
 // import NavBar from "../components/NavBar/NavBar";
 // import TodoList from "../components/TodoList/TodoList";
-import Home from "../components/Home/Home";
+
 
 const tableName = process.env.REACT_APP_TABLE_NAME;
 const baseName = process.env.REACT_APP_AIRTABLE_BASE_ID;
