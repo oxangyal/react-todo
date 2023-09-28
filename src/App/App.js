@@ -11,15 +11,14 @@ import Weather from "../components/Weather/Weather";
 import style from "./App.module.css";
 
 // import HomePage from "../components/Home/Home";
-
 // import NavBar from "../components/NavBar/NavBar";
 // import TodoList from "../components/TodoList/TodoList";
 
-
-const tableName = process.env.REACT_APP_TABLE_NAME;
+const tableId = process.env.REACT_APP_TABLE_ID;
+const tableStudy = process.env.REACT_APP_TABLE_STUDY;
 const baseName = process.env.REACT_APP_AIRTABLE_BASE_ID;
 const apiKey = process.env.REACT_APP_AIRTABLE_API_KEY;
-
+const listStudyTitle = "Study";
 function App() {
     return (
         <>
@@ -39,8 +38,9 @@ function App() {
                                     <li className={style.NavLink}>
                                         <Link to="/">Home</Link>
                                     </li>
+
                                     <li className={style.NavLink}>
-                                        <Link to="/new">New</Link>
+                                        <Link to="/study">Study</Link>
                                     </li>
                                 </ul>
                             </div>
@@ -51,13 +51,27 @@ function App() {
                                     path="/"
                                     element={
                                         <TodoContainer
-                                            tableName={tableName}
+                                            tableId={tableId}
+                                            // tableId={tableStudy}
                                             baseName={baseName}
                                             apiKey={apiKey}
                                         />
                                     }
                                 />
 
+                                <Route
+                                    exact
+                                    path="/study"
+                                    element={
+                                        <TodoContainer
+                                            // tableId={tableId}
+                                            tableId={tableStudy}
+                                            baseName={baseName}
+                                            apiKey={apiKey}
+                                            listName={listStudyTitle}
+                                        />
+                                    }
+                                />
                                 <Route
                                     path="/new"
                                     element={<h1>New Todo List</h1>}

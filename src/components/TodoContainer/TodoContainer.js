@@ -10,8 +10,14 @@ import iconZ from "../../assets/sort48d.png";
 import sortDown from "../../assets/sort48down.png";
 import sortUp from "../../assets/sort48up.png";
 import style from "./TodoContainer.module.css";
+import { useLocation } from "react-router-dom";
 
-const TodoContainer = ({ tableName, baseName, apiKey }) => {
+const TodoContainer = ({
+    tableId,
+    baseName,
+    apiKey,
+    listName = "TodoList",
+}) => {
     const [todoList, setTodoList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [sortOrder, setSortOrder] = useState("ascending");
@@ -19,6 +25,7 @@ const TodoContainer = ({ tableName, baseName, apiKey }) => {
     const [dateSortOrder, setDateSortOrder] = useState("ascending");
     const [editTodoId, setEditTodoId] = useState(null);
     const [editedText, setEditedText] = useState("");
+    const location = useLocation();
 
     const handleEdit = (id, editedText) => {
         const editedTodo = todoList.find((todo) => todo.id === id);
@@ -79,7 +86,7 @@ const TodoContainer = ({ tableName, baseName, apiKey }) => {
         };
 
         try {
-            const url = `https://api.airtable.com/v0/${baseName}/${tableName}`;
+            const url = `https://api.airtable.com/v0/${baseName}/${tableId}`;
             const response = await fetch(url, options);
             if (!response.ok) {
                 throw new Error(`Error ${response.status}`);
@@ -99,14 +106,9 @@ const TodoContainer = ({ tableName, baseName, apiKey }) => {
             // }
 
             const todos = data.records.map((todo) => {
-                const d = new Date(todo.createdTime);
-                const date = d.toLocaleDateString("en-EN", {
-                    month: "short",
-                    day: "numeric",
-                });
                 return {
                     id: todo.id,
-                    createdTime: `${date}`,
+                    createdTime: todo.createdTime,
                     title: todo.fields.title,
                 };
             });
@@ -128,8 +130,9 @@ const TodoContainer = ({ tableName, baseName, apiKey }) => {
 
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [location]);
 
+    // get the path prop from the router and add to dependency array it should be fetched when the path prop changes
     useEffect(() => {
         if (!isLoading) {
             localStorage.setItem("savedTodoList", JSON.stringify(todoList));
@@ -152,21 +155,21 @@ const TodoContainer = ({ tableName, baseName, apiKey }) => {
             }),
         };
         try {
-            const url = `https://api.airtable.com/v0/${baseName}/${tableName}`;
+            const url = `https://api.airtable.com/v0/${baseName}/${tableId}`;
             const response = await fetch(url, options);
             if (!response.ok) {
                 throw new Error(`Error: ${response.status}`);
             }
             const todo = await response.json();
-            const d = new Date(todo.createdTime);
-            const date = d.toLocaleDateString("en-EN", {
-                month: "short",
-                day: "numeric",
-            });
+            // const d = new Date(todo.createdTime);
+            // const date = d.toLocaleDateString("en-EN", {
+            //     month: "short",
+            //     day: "numeric",
+            // });
             const newTodo = {
                 id: todo.id,
                 title: todo.fields.title,
-                createdTime: `${date}`,
+                createdTime: todo.createdTime,
             };
             setTodoList([...todoList, newTodo]);
             setSortedTodoList([...sortedTodoList, newTodo]);
@@ -207,7 +210,7 @@ const TodoContainer = ({ tableName, baseName, apiKey }) => {
 
     const removeTodo = async (id) => {
         try {
-            const url = `https://api.airtable.com/v0/${baseName}/${tableName}/${id}`;
+            const url = `https://api.airtable.com/v0/${baseName}/${tableId}/${id}`;
 
             const response = await fetch(url, {
                 method: "DELETE",
@@ -256,9 +259,53 @@ const TodoContainer = ({ tableName, baseName, apiKey }) => {
     //         setSortOrder("ascending");
     //     }
     // }
+
+    // const updateTodo = async (id, newTitle) => {
+    //     const options = {
+    //         method: "PATCH",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             Authorization: `Bearer ${apiKey}`,
+    //         },
+    //         body: JSON.stringify({
+    //             fields: {
+    //                 title: newTitle,
+    //             },
+    //         }),
+    //     };
+
+    //     try {
+    //         const url = `https://api.airtable.com/v0/${baseName}/${tableName}/${id}`;
+    //         const response = await fetch(url, options);
+
+    //         if (!response.ok) {
+    //             throw new Error(`Error: ${response.status}`);
+    //         }
+
+    //         const updatedTodo = await response.json();
+
+    //         const updatedTodoList = todoList.map((todo) => {
+    //             if (todo.id === updatedTodo.id) {
+    //                 return {
+    //                     ...todo,
+    //                     title: updatedTodo.fields.title,
+    //                 };
+    //             } else {
+    //                 return todo;
+    //             }
+    //         });
+
+    //         setTodoList(updatedTodoList);
+    //         setTodoList([...todoList, newTodo]);
+    //         setSortedTodoList([...sortedTodoList, newTodo]);
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // };
+    console.log(listName);
     return (
         <>
-            <h1>Todo List</h1>
+            <h1>{listName}</h1>
             <AddTodoForm onAddTodo={addTodo} />
             <div className={style.SortButtons}>
                 <button
@@ -324,6 +371,7 @@ TodoContainer.propTypes = {
     tableName: PropTypes.string,
     baseName: PropTypes.string,
     apiKey: PropTypes.string,
+    listName: PropTypes.string,
 };
 
 export default TodoContainer;

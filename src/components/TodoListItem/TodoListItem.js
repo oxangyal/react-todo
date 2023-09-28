@@ -16,7 +16,14 @@ function TodoListItem({
     onCancel,
     editedText,
     setEditedText,
-}) {
+})
+
+{
+    const date = new Date(todo.createdTime);
+    const dateString = date.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+    });
     return (
         <div>
             <li>
@@ -46,7 +53,7 @@ function TodoListItem({
                     <>
                         {todo.title}
                         <span className={style.todoDate}>
-                            {todo.createdTime}
+                                {dateString}
                         </span>
                         <button
                             type="button"
