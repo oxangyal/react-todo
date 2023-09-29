@@ -34,27 +34,25 @@ function TodoListItem({
                             value={editedText}
                             onChange={(e) => setEditedText(e.target.value)}
                         />
-                        <button
-                            type="button"
-                            onClick={() => onSave(todo.id)}
-                            className={style.ButtonSave}
-                        >
-                            <img src={iconSave} alt="Save Icon" />
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => onCancel()}
-                            className={style.ButtonCancel}
-                        >
-                            <img src={iconCancel} alt="Cancel Icon" />
-                        </button>
+                            <button
+                                type="button"
+                                onClick={() => onSave(todo.id)}
+                                className={style.ButtonSave}
+                            >
+                                <img src={iconSave} alt="Save Icon" />
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => onCancel()}
+                                className={style.ButtonCancel}
+                            >
+                                <img src={iconCancel} alt="Cancel Icon" />
+                            </button>
                     </>
                 ) : (
                     <>
                         {todo.title}
-                        <span className={style.todoDate}>
-                                {dateString}
-                        </span>
+                        <span className={style.todoDate}>{dateString}</span>
                         <button
                             type="button"
                             onClick={() => onRemoveTodo(todo.id)}
