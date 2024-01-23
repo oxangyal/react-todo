@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;800&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap");
 
 html {
     width: 100%;
@@ -14,7 +14,7 @@ body {
     font-weight: 400;
     padding: 0;
     margin: 0;
-    background: url("../assets/boston04.jpg") center / cover no-repeat;
+    background: url("../assets/boston04.jpg") center / cover repeat-y;
 }
 
 .Container {
@@ -41,13 +41,53 @@ h1 {
     font-size: 35px;
     font-weight: 900;
 }
+
 h2 {
     font-size: 30px;
     font-weight: 700;
 }
 
+.NavLinkWrapper {
+    flex-direction: row;
+}
+
+.NavLink {
+    font-size: 15px;
+    font-weight: 600;
+    background-color: rgba(8, 8, 8, 0.119);
+    width: 100px;
+    height: 15px;
+    margin: 5px;
+    padding-left: 60px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    cursor: pointer;
+    /* transition: transform 0.2s; */
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+    text-decoration: none;
+    flex-grow: 1;
+}
+
+.NavLink:hover {
+    transform: scale(1);
+    background: linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.8),
+        rgba(255, 255, 255, 0.5)
+    );
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3),
+        0px 0px 10px rgba(255, 255, 255, 0.8);
+}
+
+.NavLink a {
+    text-decoration: none;
+    color: black;
+}
+
 @media (min-width: 768px) and (max-width: 991px) {
     body {
+        /* background: rgba(68, 144, 159, 0.47); */
         background: url("../assets/bostonmedia002.jpg") center top / cover;
     }
 
@@ -62,10 +102,13 @@ h2 {
         justify-content: center;
     }
 
+    .NavLinkWrapper {
+        flex-direction: column;
+    }
+
     .WeatherContainer {
         display: flex;
         flex-direction: column;
-        justify-content: center;
     }
 
     h1 {
@@ -75,6 +118,7 @@ h2 {
 
 @media (max-width: 767px) {
     body {
+        /* background: rgba(68, 144, 159, 0.47) ; */
         background: url("../assets/bostonmedia001.jpg") cover;
     }
 
@@ -85,10 +129,19 @@ h2 {
         margin-top: 50px;
     }
 
+    .WeatherContainer {
+        display: flex;
+        flex-direction: column;
+    }
+
     /* input {
         width: auto;
         height: auto;
     } */
+
+    .NavLinkWrapper {
+        flex-direction: column;
+    }
 
     h1 {
         font-size: 15px;

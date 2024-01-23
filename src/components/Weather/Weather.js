@@ -72,6 +72,7 @@ const Weather = () => {
             case "10d":
             case "10n":
             case "50d":
+            case "50n":
                 return (
                     <img
                         src={iconRain}
