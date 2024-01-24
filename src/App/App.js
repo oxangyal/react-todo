@@ -2,13 +2,26 @@ import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 
 import Clock from "../components/Clock/Clock";
 import Footer from "../components/Footer/Footer";
-import Home from "../components/Home/Home";
-import NotFound from "../components/NotFound/NotFound";
 import Quote from "../components/Quote/Quote";
 import Timer from "../components/Timer/Timer";
 import TodoContainer from "../components/TodoContainer/TodoContainer";
 import Weather from "../components/Weather/Weather";
 import style from "./App.module.css";
+
+// import NotFound from "../components/NotFound/NotFound";
+
+
+
+
+
+
+// import Home from "../components/Home/Home";
+
+
+
+
+
+
 
 // import HomePage from "../components/Home/Home";
 // import NavBar from "../components/NavBar/NavBar";
@@ -36,7 +49,7 @@ function App() {
                             <div>
                                 <ul className={style.NavLinkWrapper}>
                                     <li className={style.NavLink}>
-                                        <Link to="/">Home</Link>
+                                        <Link to="/">Training</Link>
                                     </li>
 
                                     <li className={style.NavLink}>
@@ -78,9 +91,9 @@ function App() {
                                 />
 
                                 {/* <Route path="/" element={<HomePage />} /> */}
-                                <Route path="/home" element={<Home />} />
+                                {/* <Route path="/home" element={<Home />} /> */}
                                 {/* <Route path="/training" element={<Training/>} /> */}
-                                <Route path="/404" element={<NotFound />} />
+                                {/* <Route path="/404" element={<NotFound />} /> */}
                             </Routes>
                         </BrowserRouter>
                     </div>
